@@ -63,7 +63,7 @@ public class ChatControlUtils {
 
 		if (!(chatDisabled)) {
 			chatDisabled = true;
-			Bukkit.broadcastMessage(locked);
+			Bukkit.broadcastMessage(prefix + " " + locked);
 		} else {
 			p.sendMessage(alreadylocked);
 		}
@@ -73,7 +73,7 @@ public class ChatControlUtils {
 
 		if (chatDisabled) {
 			chatDisabled = false;
-			Bukkit.broadcastMessage(unlocked);
+			Bukkit.broadcastMessage(prefix + " " + unlocked);
 		} else {
 			p.sendMessage(alreadyunlocked);
 		}
