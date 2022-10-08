@@ -26,7 +26,7 @@ This plugin provides the chat control to the moderators, and also allows players
   - 1.8x - 1.19x
   
 #### Alternative Hosting 🏠:
-  - Spigot: []
+  - Spigot: https://www.spigotmc.org/resources/chatcontrol.105676/
 
 ![Chat Cleared](https://user-images.githubusercontent.com/41524430/194688360-c8294260-3f46-49a4-b5e1-bf1238f197e8.png)
 
