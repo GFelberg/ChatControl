@@ -35,10 +35,6 @@ public class Mute implements CommandExecutor {
 			MuteUtils utils = new MuteUtils();
 
 			if (args.length == 1) {
-
-				if (args[0].equalsIgnoreCase("list")) {
-					utils.listPlayers(p);
-				}
 				Player selected = Bukkit.getServer().getPlayer(args[0]);
 				utils.mutePlayer(p, selected);
 				return true;

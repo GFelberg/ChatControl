@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
@@ -73,15 +72,6 @@ public class MuteUtils {
 		} else {
 			p.sendMessage(already_unmuted);
 		}
-	}
-
-	public void listPlayers(Player p) {
-		p.sendMessage("\n---------------");
-		p.sendMessage(ChatColor.AQUA + "Muted Players: \n");
-		for (UUID uuids : players) {
-			p.sendMessage(ChatColor.YELLOW + " - " + uuids);
-		}
-		p.sendMessage("---------------\n");
 	}
 
 	public void checkPlayer(Player p, Player selected) {
