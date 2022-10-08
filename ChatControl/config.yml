@@ -1,0 +1,63 @@
+# Plugin developed by GFelberg
+# Config.yml
+
+# language: en
+# Thanks for downloading my plugin. For more plugins, dont forget to look my updates!
+# If you find any bugs or ideas to the plugin, pm me at spigot.
+
+# language: br/pt
+# Obrigado por baixar meu plugin. Para mais plugins, não esqueça de olhar as atualizações!
+# Se você encontrar algum problema ou ter alguma ideia para o plugin, pm no spigot.   
+
+# Permissions
+
+# chatcontrol.chatcontrol : Access to the ChatControl, Mute and Unmute Command and the Help Page
+# chatcontrol.bypass : Access to use the chat while is locked by an Admin
+# chatcontrol.exempt : Access to block any Mute Command in the player which contains this permission. For operators, it's default.
+# chatcontrol.reload : Access to Reload the Plugin
+ 
+# Configuration 1.0
+# This configuration will display the ChatControl Messages
+
+ChatControl: 
+  Prefix: '&b[&eChat&b]&r'
+  Message: '&eChat cleared'
+  Locked: '&cChat has been locked by an Admin!'
+  Unlocked: '&aChat has been unlocked by an Admin!'
+  AlreadyLocked: '&cThe chat is already locked!'
+  AlreadyUnlocked: '&cThe chat is already unlocked!'
+  
+# Configuration 1.1
+# This configuration will display the Help Page Messages
+  
+Help:
+  Page: '&eShow this page'
+  Chat: '&eClears the chat'
+  UnlockChat: '&eUnlocks the chat'
+  LockChat: '&eLocks the chat'
+  MutePlayer: '&eMutes a player'
+  UnmutePlayer: '&eUnmutes a player'
+  ListPlayers: '&eList all the muted players'
+  Reload: '&eReloads the Plugin'
+
+# Configuration 1.2
+# This configuration will display the Notification Option
+
+# If true, when a muted player joins or leaves the server, the operators and players which contains the "chatcontrol.notify" permission
+# will recieve a notification about the muted player
+
+NotifyOperators: true
+
+# Configuration 1.3
+# This configuration will display the MuteSystem Messages
+  
+MuteSystem:
+  Muted: '&eYou have been muted'
+  Unmuted: '&eYou have been unmuted'
+  MutedAdmin: '&eThe player has been muted'
+  UnmutedAdmin: '&eThe player has been unmuted'
+  AlreadyMuted: '&cThis player is already muted!'
+  AlreadyUnmuted: '&cThis player is already unmuted!'
+  NotMuted: '&cThis player is not muted'
+  Exempt: '&cYou cant mute this player!'
+  PlayerNotFound: '&cThe player is offline!'

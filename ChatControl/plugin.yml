@@ -1,0 +1,12 @@
+name: ChatControl
+version: 1.0
+main: me.GFelberg.ChatControl.Main
+author: GFelberg
+commands:
+  chatcontrol:
+    usage: /<command>
+    aliases: [cc]
+  mute:
+    usage: /<command>
+  unmute:
+    usage: /<command>  
