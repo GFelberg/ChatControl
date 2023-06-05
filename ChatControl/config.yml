@@ -11,7 +11,7 @@
 
 # Permissions
 
-# chatcontrol.chatcontrol : Access to the ChatControl, Mute and Unmute Command and the Help Page
+# chatcontrol.admin : Access to the ChatControl, Mute and Unmute Command and the Help Page
 # chatcontrol.bypass : Access to use the chat while is locked by an Admin
 # chatcontrol.exempt : Access to block any Mute Command in the player which contains this permission. For operators, it's default.
 # chatcontrol.reload : Access to Reload the Plugin
@@ -60,4 +60,5 @@ MuteSystem:
   AlreadyUnmuted: '&cThis player is already unmuted!'
   NotMuted: '&cThis player is not muted'
   Exempt: '&cYou cant mute this player!'
+  NoPlayers: '&cNo muted players!'
   PlayerNotFound: '&cThe player is offline!'

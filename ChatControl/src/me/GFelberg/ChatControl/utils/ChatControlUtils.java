@@ -5,20 +5,13 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import me.GFelberg.ChatControl.Main;
-import me.GFelberg.ChatControl.data.MuteConfig;
 
 public class ChatControlUtils {
 
-	public static String prefix, cleared, locked, unlocked, alreadylocked, alreadyunlocked;
-	public static volatile boolean chatDisabled = false;
+	public static String prefix;
 
 	public static void loadVariables() {
 		prefix = Main.getInstance().getConfig().getString("ChatControl.Prefix").replace("&", "§");
-		cleared = Main.getInstance().getConfig().getString("ChatControl.Message").replace("&", "§");
-		locked = Main.getInstance().getConfig().getString("ChatControl.Locked").replace("&", "§");
-		unlocked = Main.getInstance().getConfig().getString("ChatControl.Unlocked").replace("&", "§");
-		alreadylocked = Main.getInstance().getConfig().getString("ChatControl.AlreadyLocked").replace("&", "§");
-		alreadyunlocked = Main.getInstance().getConfig().getString("ChatControl.AlreadyUnlocked").replace("&", "§");
 	}
 
 	public void reloadConfig(Player p) {
@@ -28,7 +21,6 @@ public class ChatControlUtils {
 		} else {
 			Main.getInstance().reloadConfig();
 			Main.getInstance().loadVariables();
-			MuteConfig.reloadConfig();
 			p.sendMessage(prefix + " " + ChatColor.GREEN + "Plugin reloaded successfully!");
 			Bukkit.getConsoleSender().sendMessage("=============================================");
 			Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "ChatControl Plugin reloaded");
@@ -49,33 +41,5 @@ public class ChatControlUtils {
 		p.sendMessage(ChatColor.YELLOW + "/unmute <player> : " + helpUtils.getHelp_unmutePlayer());
 		p.sendMessage(ChatColor.YELLOW + "/cc reload : " + helpUtils.getHelp_reload());
 		p.sendMessage(ChatColor.WHITE + "-----------------------------------------");
-	}
-
-	public void clearChat() {
-
-		for (int i = 0; i < 130; i++) {
-			Bukkit.broadcastMessage("");
-		}
-		Bukkit.broadcastMessage(prefix + " " + cleared);
-	}
-
-	public void lockChat(Player p) {
-
-		if (!(chatDisabled)) {
-			chatDisabled = true;
-			Bukkit.broadcastMessage(prefix + " " + locked);
-		} else {
-			p.sendMessage(alreadylocked);
-		}
-	}
-
-	public void unlockChat(Player p) {
-
-		if (chatDisabled) {
-			chatDisabled = false;
-			Bukkit.broadcastMessage(prefix + " " + unlocked);
-		} else {
-			p.sendMessage(alreadyunlocked);
-		}
 	}
 }

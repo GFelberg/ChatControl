@@ -7,7 +7,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import me.GFelberg.ChatControl.utils.MuteUtils;
+import me.GFelberg.ChatControl.data.MuteSystem;
 
 public class Unmute implements CommandExecutor {
 
@@ -34,7 +34,7 @@ public class Unmute implements CommandExecutor {
 			if (args.length == 1) {
 				Player p = (Player) sender;
 				Player selected = Bukkit.getServer().getPlayer(args[0]);
-				MuteUtils utils = new MuteUtils();
+				MuteSystem utils = new MuteSystem();
 				utils.unmutePlayer(p, selected);
 				return true;
 			}

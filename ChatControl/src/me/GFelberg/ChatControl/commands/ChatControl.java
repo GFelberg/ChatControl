@@ -6,6 +6,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import me.GFelberg.ChatControl.data.ChatControlSystem;
 import me.GFelberg.ChatControl.utils.ChatControlUtils;
 
 public class ChatControl implements CommandExecutor {
@@ -20,15 +21,16 @@ public class ChatControl implements CommandExecutor {
 				return true;
 			}
 
-			if (!(sender.hasPermission("chatcontrol.chatcontrol"))) {
+			if (!(sender.hasPermission("chatcontrol.admin"))) {
 				sender.sendMessage(ChatColor.RED + "You dont have permission to perform this command!");
 				return true;
 			}
 
 			ChatControlUtils utils = new ChatControlUtils();
+			ChatControlSystem sys = new ChatControlSystem();
 
 			if (args.length == 0) {
-				utils.clearChat();
+				sys.clearChat();
 				return true;
 			}
 
@@ -37,12 +39,12 @@ public class ChatControl implements CommandExecutor {
 
 				if (args[0].equalsIgnoreCase("reload")) {
 					utils.reloadConfig(p);
-				} else if (args[0].equalsIgnoreCase("lock")) {
-					utils.lockChat(p);
-				} else if (args[0].equalsIgnoreCase("unlock")) {
-					utils.unlockChat(p);
 				} else if (args[0].equalsIgnoreCase("help")) {
 					utils.helpPage(p);
+				} else if (args[0].equalsIgnoreCase("lock")) {
+					sys.lockChat(p);
+				} else if (args[0].equalsIgnoreCase("unlock")) {
+					sys.unlockChat(p);
 				}
 				return true;
 			}

@@ -7,7 +7,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import me.GFelberg.ChatControl.utils.MuteUtils;
+import me.GFelberg.ChatControl.data.MuteSystem;
 
 public class Mute implements CommandExecutor {
 
@@ -32,17 +32,20 @@ public class Mute implements CommandExecutor {
 			}
 
 			Player p = (Player) sender;
-			MuteUtils utils = new MuteUtils();
+			MuteSystem sys = new MuteSystem();
 
 			if (args.length == 1) {
+				if (args[0].equalsIgnoreCase("list")) {
+					sys.muteList(p);
+				}
 				Player selected = Bukkit.getServer().getPlayer(args[0]);
-				utils.mutePlayer(p, selected);
+				sys.mutePlayer(p, selected);
 				return true;
 			}
 
 			if (args.length == 2 && args[0].equalsIgnoreCase("check")) {
 				Player selected = Bukkit.getServer().getPlayer(args[1]);
-				utils.checkPlayer(p, selected);
+				sys.checkPlayer(p, selected);
 				return true;
 			}
 		}

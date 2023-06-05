@@ -1,5 +1,7 @@
 package me.GFelberg.ChatControl.events;
 
+import java.util.UUID;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -11,9 +13,9 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.GFelberg.ChatControl.Main;
+import me.GFelberg.ChatControl.data.ChatControlSystem;
 import me.GFelberg.ChatControl.data.MuteConfig;
-import me.GFelberg.ChatControl.utils.ChatControlUtils;
-import me.GFelberg.ChatControl.utils.MuteUtils;
+import me.GFelberg.ChatControl.data.MuteSystem;
 
 public class ChatControlEvents implements Listener {
 
@@ -21,19 +23,19 @@ public class ChatControlEvents implements Listener {
 	public void onChat(AsyncPlayerChatEvent event) {
 		Player p = event.getPlayer();
 
-		if (ChatControlUtils.chatDisabled) {
+		if (ChatControlSystem.chatDisabled) {
 			if (!(p.hasPermission("chatcontrol.bypass"))) {
-				p.sendMessage(ChatControlUtils.locked);
+				p.sendMessage(ChatControlSystem.locked);
 				event.setCancelled(true);
 			} else {
 				event.setCancelled(false);
 			}
 		}
 
-		if (!(MuteUtils.players.contains(p.getUniqueId()))) {
+		if (!(MuteSystem.muted_players.containsKey(p.getUniqueId()))) {
 			return;
 		} else {
-			p.sendMessage(MuteUtils.muted);
+			p.sendMessage(MuteSystem.muted);
 			event.setCancelled(true);
 		}
 	}
@@ -41,12 +43,19 @@ public class ChatControlEvents implements Listener {
 	@EventHandler
 	public void onJoin(PlayerJoinEvent event) {
 		Player p = event.getPlayer();
-		FileConfiguration custom = MuteConfig.getConfig();
-		FileConfiguration config = Main.getInstance().getConfig();
+		UUID uuid = p.getUniqueId();
+		FileConfiguration customConfig = MuteConfig.getConfig();
+		String path = "MutedPlayers." + uuid.toString();
 
-		if (!(custom.contains("MutedPlayers." + p.getUniqueId().toString()))) {
+		if (customConfig.getString(path) == null) {
 			return;
 		} else {
+			MuteSystem.muted_players.put(uuid, customConfig.getString(path + ".Muted By"));
+			customConfig.set("MutedPlayers." + uuid.toString(), null);
+			MuteConfig.saveConfig();
+
+			FileConfiguration config = Main.getInstance().getConfig();
+
 			if (config.getBoolean("NotifyOperators")) {
 				for (Player operator : Bukkit.getOnlinePlayers()) {
 					if (operator.isOp() || operator.hasPermission("chatcontrol.notify")) {
@@ -59,18 +68,25 @@ public class ChatControlEvents implements Listener {
 					}
 				}
 			}
-			MuteUtils.players.add(p.getUniqueId());
 		}
 	}
 
 	@EventHandler
 	public void onQuit(PlayerQuitEvent event) {
 		Player p = event.getPlayer();
-		FileConfiguration config = Main.getInstance().getConfig();
+		UUID uuid = p.getUniqueId();
 
-		if (!(MuteUtils.players.contains(p.getUniqueId()))) {
+		if (!(MuteSystem.muted_players.containsKey(uuid))) {
 			return;
 		} else {
+			FileConfiguration customConfig = MuteConfig.getConfig();
+			customConfig.set("MutedPlayers." + uuid.toString() + ".Player", p.getName());
+			customConfig.set("MutedPlayers." + uuid.toString() + ".Muted By", MuteSystem.muted_players.get(uuid));
+			MuteConfig.saveConfig();
+			MuteSystem.muted_players.remove(uuid);
+
+			FileConfiguration config = Main.getInstance().getConfig();
+
 			if (config.getBoolean("NotifyOperators")) {
 				for (Player operator : Bukkit.getOnlinePlayers()) {
 					if (operator.isOp() || operator.hasPermission("chatcontrol.notify")) {
@@ -83,7 +99,6 @@ public class ChatControlEvents implements Listener {
 					}
 				}
 			}
-			MuteUtils.players.remove(p.getUniqueId());
 		}
 	}
 }

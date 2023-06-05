@@ -7,9 +7,9 @@ import me.GFelberg.ChatControl.commands.ChatControl;
 import me.GFelberg.ChatControl.commands.Mute;
 import me.GFelberg.ChatControl.commands.Unmute;
 import me.GFelberg.ChatControl.data.MuteConfig;
+import me.GFelberg.ChatControl.data.MuteSystem;
 import me.GFelberg.ChatControl.events.ChatControlEvents;
 import me.GFelberg.ChatControl.utils.ChatControlUtils;
-import me.GFelberg.ChatControl.utils.MuteUtils;
 
 public class Main extends JavaPlugin {
 
@@ -41,7 +41,7 @@ public class Main extends JavaPlugin {
 
 	public void loadVariables() {
 		ChatControlUtils.loadVariables();
-		MuteUtils.loadVariables();
+		MuteSystem.loadVariables();
 	}
 
 	public void loadCommands() {

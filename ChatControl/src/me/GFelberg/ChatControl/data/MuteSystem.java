@@ -1,20 +1,19 @@
-package me.GFelberg.ChatControl.utils;
+package me.GFelberg.ChatControl.data;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 import java.util.UUID;
 
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import me.GFelberg.ChatControl.Main;
-import me.GFelberg.ChatControl.data.MuteConfig;
 
-public class MuteUtils {
+public class MuteSystem {
 
-	public static List<UUID> players = new ArrayList<UUID>();
+	public static HashMap<UUID, String> muted_players = new HashMap<UUID, String>();
 	public static String muted, unmuted, muted_admin, unmuted_admin;
-	public static String already_muted, already_unmuted, notmuted, exempt, playernotfound;
+	public static String already_muted, already_unmuted, notmuted, exempt, playernotfound, noplayers;
 
 	public static void loadVariables() {
 		muted = Main.getInstance().getConfig().getString("MuteSystem.Muted").replace("&", "§");
@@ -25,6 +24,7 @@ public class MuteUtils {
 		already_unmuted = Main.getInstance().getConfig().getString("MuteSystem.AlreadyUnmuted").replace("&", "§");
 		notmuted = Main.getInstance().getConfig().getString("MuteSystem.NotMuted").replace("&", "§");
 		exempt = Main.getInstance().getConfig().getString("MuteSystem.Exempt").replace("&", "§");
+		noplayers = Main.getInstance().getConfig().getString("MuteSystem.NoPlayers").replace("&", "§");
 		playernotfound = Main.getInstance().getConfig().getString("MuteSystem.PlayerNotFound").replace("&", "§");
 	}
 
@@ -35,16 +35,12 @@ public class MuteUtils {
 			return;
 		}
 
-		FileConfiguration custom = MuteConfig.getConfig();
-
-		if (!(players.contains(selected.getUniqueId()))) {
-			if (selected.isOp() || selected.hasPermission("chatcontrol.exempt")) {
+		if (!(muted_players.containsKey(selected.getUniqueId()))) {
+			if (selected.hasPermission("chatcontrol.exempt")) {
 				p.sendMessage(exempt);
 			} else {
-				custom.set("MutedPlayers." + selected.getUniqueId().toString() + ".Name", selected.getName());
-				MuteConfig.saveConfig();
-				MuteConfig.reloadConfig();
-				players.add(selected.getUniqueId());
+				UUID uuid = selected.getUniqueId();
+				muted_players.put(uuid, p.getName());
 				selected.sendMessage(muted);
 				p.sendMessage(muted_admin);
 			}
@@ -60,13 +56,8 @@ public class MuteUtils {
 			return;
 		}
 
-		FileConfiguration custom = MuteConfig.getConfig();
-
-		if (players.contains(selected.getUniqueId())) {
-			custom.set("MutedPlayers." + selected.getUniqueId().toString(), null);
-			MuteConfig.saveConfig();
-			MuteConfig.reloadConfig();
-			players.remove(selected.getUniqueId());
+		if (muted_players.containsKey(selected.getUniqueId())) {
+			muted_players.remove(selected.getUniqueId());
 			selected.sendMessage(unmuted);
 			p.sendMessage(unmuted_admin);
 		} else {
@@ -79,12 +70,31 @@ public class MuteUtils {
 		if (selected == null) {
 			p.sendMessage(playernotfound);
 			return;
-		}
-
-		if (players.contains(p.getUniqueId())) {
-			p.sendMessage(already_muted);
 		} else {
-			p.sendMessage(notmuted);
+			if (muted_players.containsKey(selected.getUniqueId())) {
+				p.sendMessage(already_muted);
+			} else {
+				p.sendMessage(notmuted);
+			}
+		}
+	}
+
+	public void muteList(Player p) {
+
+		FileConfiguration customConfig = MuteConfig.getConfig();
+
+		if (customConfig.getString("MutedPlayers") == null) {
+			p.sendMessage(noplayers);
+			return;
+		} else {
+			p.sendMessage("\n===============");
+			p.sendMessage(ChatColor.AQUA + "Muted Players:");
+			p.sendMessage("");
+			p.sendMessage(ChatColor.BOLD + "Total: " + muted_players.size());
+			for (UUID key : muted_players.keySet()) {
+				p.sendMessage(ChatColor.YELLOW + " - " + muted_players.get(key));
+			}
+			p.sendMessage("===============\n");
 		}
 	}
 }
