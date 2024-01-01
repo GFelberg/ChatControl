@@ -6,6 +6,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import me.GFelberg.ChatControl.commands.ChatControl;
 import me.GFelberg.ChatControl.commands.Mute;
 import me.GFelberg.ChatControl.commands.Unmute;
+import me.GFelberg.ChatControl.data.ChatControlSystem;
 import me.GFelberg.ChatControl.data.MuteConfig;
 import me.GFelberg.ChatControl.data.MuteSystem;
 import me.GFelberg.ChatControl.events.ChatControlEvents;
@@ -41,6 +42,7 @@ public class Main extends JavaPlugin {
 
 	public void loadVariables() {
 		ChatControlUtils.loadVariables();
+		ChatControlSystem.loadVariables();
 		MuteSystem.loadVariables();
 	}
 
