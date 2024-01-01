@@ -21,7 +21,9 @@ ChatControl is a plugin made for Minecraft which provides the chat control to th
     chatcontrol.reload : Access to Reload the Plugin
 
 ### How the Plugin works?
-    It's simple. Use the command "/cc lock" or "/cc unlock" to disable or enable the chat for the players in your server. We also provide a way to mute a player with the command "mute <player>", and for unmute "/unmute <player>".
+    It's simple. Use the command "/cc lock" or "/cc unlock" to disable or enable the chat 
+    for the players in your server. We also provide a way to mute a player with the 
+    command "mute <player>", and for unmute "/unmute <player>".
 
 ### Available for download at Spigot: https://www.spigotmc.org/resources/chatcontrol.105676/
 
