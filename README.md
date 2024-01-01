@@ -35,7 +35,7 @@ ChatControl is a plugin made for Minecraft which provides the chat control to th
 
 ![3](https://github.com/GFelberg/ChatControl/assets/41524430/c2f220ac-24ac-4f97-b308-a9bbbb8bdafa)
 
-## Portuguese: <img scr="https://github.com/GFelberg/ChatControl/assets/41524430/78fe75a4-2347-485e-a209-0558e9f7472c" width="30" height="30"> 
+## Portuguese: <img src="https://github.com/GFelberg/ChatControl/assets/41524430/423fe37e-dc59-4cfa-bb04-d8d21c3baa34" width="30" heigh="30">
 ChatControl é um plugin desenvolvido para o Minecraft que fornece o controle do chat aos moderadores, assim como permite que jogadores sejam mutados caso seja necessário.
 
 ### Comandos:
@@ -56,7 +56,9 @@ ChatControl é um plugin desenvolvido para o Minecraft que fornece o controle do
     chatcontrol.reload : Acesso para Recarregar o Plugin
 
 ### Como o Plugin funciona?
-    É simples. Use o comando "/cc lock" ou "/cc unlock" para desbloquear ou bloquear o chat para os jogadores de seu servidor. Existe uma maneira de mutar um jogador com o comando "/mute <player>", e desmutar com "/unmute <player>".
+    É simples. Use o comando "/cc lock" ou "/cc unlock" para desbloquear ou bloquear o chat
+    para os jogadores de seu servidor. Existe uma maneira de mutar um jogador com o 
+    comando "/mute <player>", e desmutar com "/unmute <player>".
     
 ### Disponível para download no Spigot: https://www.spigotmc.org/resources/chatcontrol.105676/
 
